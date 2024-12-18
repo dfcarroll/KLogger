@@ -134,7 +134,7 @@ class Logger extends AbstractLogger
         }
     }
 
-    public function setFileHandle(string $writeMode) {
+    public function setFileHandle(string $writeMode): void {
         $this->fileHandle = fopen($this->logFilePath, $writeMode);
     }
 
@@ -146,12 +146,12 @@ class Logger extends AbstractLogger
         }
     }
 
-    public function setDateFormat(string $dateFormat)
+    public function setDateFormat(string $dateFormat): void
     {
         $this->options['dateFormat'] = $dateFormat;
     }
 
-    public function setLogLevelThreshold(string $logLevelThreshold)
+    public function setLogLevelThreshold(string $logLevelThreshold): void
     {
         $this->logLevelThreshold = $logLevelThreshold;
     }
