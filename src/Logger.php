@@ -101,7 +101,7 @@ class Logger extends AbstractLogger
             mkdir($logDirectory, $this->defaultPermissions, true);
         }
 
-        if(strpos($logDirectory, 'php://') === 0) {
+        if(str_starts_with($logDirectory, 'php://')) {
             $this->setLogToStdOut($logDirectory);
             $this->setFileHandle('w+');
         } else {
@@ -123,7 +123,7 @@ class Logger extends AbstractLogger
 
     public function setLogFilePath(string $logDirectory): void {
         if ($this->options['filename']) {
-            if (strpos($this->options['filename'], '.log') !== false || strpos($this->options['filename'], '.txt') !== false) {
+            if (str_contains($this->options['filename'], '.log') || str_contains($this->options['filename'], '.txt')) {
                 $this->logFilePath = $logDirectory.DIRECTORY_SEPARATOR.$this->options['filename'];
             }
             else {
