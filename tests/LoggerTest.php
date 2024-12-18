@@ -84,7 +84,7 @@ class LoggerTest extends PHPUnit\Framework\TestCase
     }
 
     public function tearDown(): void {
-        #@unlink($this->logger->getLogFilePath());
-        #@unlink($this->errLogger->getLogFilePath());
+        @unlink($this->logger->getLogFilePath());
+        @unlink($this->errLogger->getLogFilePath());
     }
 }
