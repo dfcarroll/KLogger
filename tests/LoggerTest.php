@@ -1,43 +1,43 @@
 <?php
 
-use Katzgrau\KLogger\Logger;
+use CruiseCritic\KLogger\Logger;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 class LoggerTest extends PHPUnit\Framework\TestCase
 {
-    private $logPath;
-
-    private $logger;
-    private $errLogger;
+    private string $logPath;
+    private Logger $logger;
+    private Logger $errLogger;
 
     public function setUp(): void
     {
         $this->logPath = __DIR__.'/logs';
-        $this->logger = new Logger($this->logPath, LogLevel::DEBUG, array ('flushFrequency' => 1));
-        $this->errLogger = new Logger($this->logPath, LogLevel::ERROR, array (
+        $this->logger = new Logger($this->logPath, LogLevel::DEBUG, ['flushFrequency' => 1]);
+        $this->errLogger = new Logger($this->logPath, LogLevel::ERROR, [
             'extension' => 'log',
             'prefix' => 'error_',
             'flushFrequency' => 1
-        ));
+        ]);
     }
 
-    public function testImplementsPsr3LoggerInterface()
+    public function testImplementsPsr3LoggerInterface(): void
     {
-        $this->assertInstanceOf('Psr\Log\LoggerInterface', $this->logger);
+        $this->assertInstanceOf(LoggerInterface::class, $this->logger);
     }
 
-    public function testAcceptsExtension()
+    public function testAcceptsExtension(): void
     {
         $this->assertStringEndsWith('.log', $this->errLogger->getLogFilePath());
     }
 
-    public function testAcceptsPrefix()
+    public function testAcceptsPrefix(): void
     {
         $filename = basename($this->errLogger->getLogFilePath());
         $this->assertStringStartsWith('error_', $filename);
     }
 
-    public function testWritesBasicLogs()
+    public function testWritesBasicLogs(): void
     {
         $this->logger->log(LogLevel::DEBUG, 'This is a test');
         $this->errLogger->log(LogLevel::ERROR, 'This is a test');
@@ -50,17 +50,17 @@ class LoggerTest extends PHPUnit\Framework\TestCase
     }
 
 
-    public function assertLastLineEquals(Logger $logr)
+    public function assertLastLineEquals(Logger $logr): void
     {
         $this->assertEquals($logr->getLastLogLine(), $this->getLastLine($logr->getLogFilePath()));
     }
 
-    public function assertLastLineNotEquals(Logger $logr)
+    public function assertLastLineNotEquals(Logger $logr): void
     {
         $this->assertNotEquals($logr->getLastLogLine(), $this->getLastLine($logr->getLogFilePath()));
     }
 
-    private function getLastLine($filename)
+    private function getLastLine(string $filename): string
     {
         $size = filesize($filename);
         $fp = fopen($filename, 'r');

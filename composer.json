@@ -1,6 +1,6 @@
 {
-    "name": "katzgrau/klogger",
-    "version": "1.2.2",
+    "name": "cruisecritic/klogger",
+    "version": "2.0.0",
     "description": "A Simple Logging Class",
     "keywords": ["logging"],
     "require": {
@@ -23,7 +23,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Katzgrau\\KLogger\\": "src/"
+            "CruiseCritic\\KLogger\\": "src/"
         },
         "classmap": ["src/"]
     }
