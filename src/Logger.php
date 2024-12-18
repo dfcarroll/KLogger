@@ -206,7 +206,7 @@ class Logger extends AbstractLogger
      * @param array $context
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         if ($this->logLevels[$this->logLevelThreshold] < $this->logLevels[$level]) {
             return;
